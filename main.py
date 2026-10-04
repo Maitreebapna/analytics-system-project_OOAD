@@ -4,6 +4,7 @@ import os
 from typing import Optional
 
 from analytics import AnalyticsEngine
+from database import YouTubeDatabase
 from fetcher import YouTubeDataFetcher
 
 
@@ -20,6 +21,8 @@ def main() -> None:
 
 	fetcher = YouTubeDataFetcher(api_key=api_key)
 	channel = fetcher.fetch_channel_data("@rajshamani")
+	database = YouTubeDatabase()
+	database.save_channel(channel)
 	analytics = AnalyticsEngine(channel)
 
 	average_engagement = channel.get_average_engagement()
@@ -65,6 +68,7 @@ def main() -> None:
 
 	csv_filename = analytics.export_to_csv("yt_analytics.csv")
 	print("\nEXPORT")
+	print("  SQLite database saved to youtube_analytics.db")
 	print(f"  Analytics dataset saved to {csv_filename}")
 
 
