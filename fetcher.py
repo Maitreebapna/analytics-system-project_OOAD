@@ -44,6 +44,18 @@ class YouTubeDataFetcher:
 		)
 		self._channel_id = configured_channel_id.strip() or self._MOCK_CHANNEL_ID
 		self._requested_channel_id: Optional[str] = None
+		self._data_source = "not fetched"
+		self._fallback_reason: Optional[str] = None
+
+	@property
+	def data_source(self) -> str:
+		"""Return whether the latest fetch used the live API or mock data."""
+		return self._data_source
+
+	@property
+	def fallback_reason(self) -> Optional[str]:
+		"""Explain why the latest fetch used mock data, if it did."""
+		return self._fallback_reason
 
 	def fetch_channel_data(self, channel_id: Optional[str] = None) -> Channel:
 		"""Fetch a channel and its latest videos, falling back to sample data.
@@ -61,7 +73,9 @@ class YouTubeDataFetcher:
 		"""
 		channel_id = channel_id or self._channel_id
 		self._requested_channel_id = channel_id
+		self._fallback_reason = None
 		if not self._api_key:
+			self._fallback_reason = "YOUTUBE_API_KEY is not configured"
 			return self.generate_raj_shamani_mock_data()
 
 		try:
@@ -84,7 +98,8 @@ class YouTubeDataFetcher:
 			).execute()
 			channels = channel_response.get("items", [])
 			if not channels:
-				logger.warning("No YouTube channel found for %s; using mock data", channel_id)
+				self._fallback_reason = f"No YouTube channel found for {channel_id}"
+				logger.warning("%s; using mock data", self._fallback_reason)
 				return self.generate_raj_shamani_mock_data()
 
 			channel_data = channels[0]
@@ -95,14 +110,19 @@ class YouTubeDataFetcher:
 			video_ids = self._get_latest_video_ids(service, uploads_playlist)
 			videos = self._get_videos(service, video_ids)
 
-			return Channel(
+			channel = Channel(
 				channel_id=channel_data.get("id", channel_id),
 				channel_name=snippet.get("title") or "YouTube Channel",
 				subscribers=self._parse_count(statistics.get("subscriberCount")),
 				total_videos=self._parse_count(statistics.get("videoCount")),
 				videos=videos,
 			)
-		except Exception:
+			self._data_source = "live"
+			return channel
+		except Exception as error:
+			self._fallback_reason = (
+				f"YouTube API request failed ({type(error).__name__})"
+			)
 			logger.exception("YouTube API request failed; using mock data")
 			return self.generate_raj_shamani_mock_data()
 
@@ -118,6 +138,7 @@ class YouTubeDataFetcher:
 			categories associated with business, leadership, health, and psychology.
 			The view and engagement counts are illustrative, not live statistics.
 		"""
+		self._data_source = "mock"
 		channel = Channel(
 			channel_id=self._requested_channel_id or self._channel_id,
 			channel_name="Raj Shamani",

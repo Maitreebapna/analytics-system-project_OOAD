@@ -4,29 +4,25 @@ import os
 from typing import Optional
 
 from analytics import AnalyticsEngine
-from database import YouTubeDatabase
-from fetcher import YouTubeDataFetcher
+from data_service import refresh_data
 
 
 def main() -> None:
 	"""Fetch Raj Shamani data, present podcast analytics, and export a CSV."""
 	api_key: Optional[str] = os.getenv("YOUTUBE_API_KEY")
 	recommendation_topic = "Psychology & Focus"
-	has_api_key = bool(api_key and api_key.strip())
 
-	if has_api_key:
-		print("[INFO] Live API Key Found")
+	result = refresh_data()
+	channel = result.channel
+	if result.data_source == "live":
+		print("[INFO] Live YouTube data loaded")
 	else:
-		print("[INFO] No API Key Found - Using Raj Shamani Dataset")
-
-	fetcher = YouTubeDataFetcher(api_key=api_key)
-	channel = fetcher.fetch_channel_data("@rajshamani")
-	database = YouTubeDatabase()
-	database.save_channel(channel)
+		fallback_reason = result.fallback_reason or "Mock data was requested"
+		print(f"[INFO] Using mock data: {fallback_reason}")
 	analytics = AnalyticsEngine(channel)
+	dataframe = result.dataframe
 
 	average_engagement = channel.get_average_engagement()
-	dataframe = analytics.compute_metrics_dataframe()
 	top_episodes = dataframe.sort_values(
 		["Engagement_Rate", "views"],
 		ascending=[False, False],
@@ -66,10 +62,10 @@ def main() -> None:
 				f"| Views: {recommendation['views']:,}"
 			)
 
-	csv_filename = analytics.export_to_csv("yt_analytics.csv")
 	print("\nEXPORT")
-	print("  SQLite database saved to youtube_analytics.db")
-	print(f"  Analytics dataset saved to {csv_filename}")
+	print(f"  SQLite database saved to {result.database_path}")
+	print(f"  Analytics snapshot saved as #{result.snapshot_id}")
+	print(f"  Analytics dataset saved to {result.csv_path}")
 
 
 if __name__ == "__main__":
