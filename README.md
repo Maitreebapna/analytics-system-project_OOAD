@@ -45,18 +45,6 @@ terminal directory:
 - `yt_analytics.csv`: Latest run, with the existing column names retained for
 	compatibility with Power BI reports already connected to this file.
 
-## Power BI
-
-In Power BI Desktop, select **Get Data > Text/CSV**, choose `yt_analytics.csv`,
-then select **Load** or **Transform Data**. Refresh the query after each run of
-`main.py`. The CSV is the recommended source for an existing dashboard.
-
-For historical trends, connect Power BI to the SQLite database using an
-installed SQLite ODBC driver: select **Get Data > ODBC**, choose the DSN pointing
-to `youtube_analytics.db`, and select the `powerbi_video_analytics` view. Each
-successful run creates another snapshot row set, including whether the source
-was live or mock data.
-
 ## Tests
 
 Run the command-line analytics pipeline with:
