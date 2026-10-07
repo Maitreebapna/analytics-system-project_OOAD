@@ -65,20 +65,25 @@ Run the command-line analytics pipeline with:
 python main.py
 ```
 
-## Web Frontend API
+## Web Dashboard
 
-Install the updated dependencies, create or refresh an analytics snapshot, and
-start the local API server:
+Start the API and browser dashboard from the project directory:
 
 ```powershell
-python -m pip install -r requirements.txt
-python main.py
 python -m uvicorn api:app --reload
 ```
 
-The API listens at `http://127.0.0.1:8000`. Open
-`http://127.0.0.1:8000/docs` to try the endpoints interactively. A browser
-frontend can call these routes:
+Open `http://127.0.0.1:8000` for the dashboard or
+`http://127.0.0.1:8000/docs` to try the API endpoints interactively. On first
+launch, choose **Fetch first snapshot** in the dashboard to load channel data.
+Without a `YOUTUBE_API_KEY`, the backend automatically uses clearly labeled
+illustrative sample data. To fetch live data, set `YOUTUBE_API_KEY` before
+starting the server.
+
+The dashboard includes channel metrics, video performance categories, a
+searchable and filterable video library, and topic-based learning paths. Use
+**Refresh data** to fetch another snapshot or enter a different channel ID or
+handle. The frontend is served by FastAPI and calls these same-origin routes:
 
 - `GET /api/health`: API and snapshot status.
 - `GET /api/dashboard`: channel and aggregate metrics for the latest snapshot.

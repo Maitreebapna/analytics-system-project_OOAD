@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f7fb">
+  <meta name="description" content="A clear, practical view of YouTube channel performance and learning pathways.">
+  <title>YouTube Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="YouTube Analytics home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M5 22.5 12 15l5 4 10-11" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 8h7v7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="brand-name">YouTube Analytics</span>
+      </a>
+
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-link is-active" type="button" data-view="overview">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="11" width="7" height="10" rx="2"/><rect x="3" y="14" width="8" height="7" rx="2"/></svg>
+          <span>Overview</span>
+        </button>
+        <button class="nav-link" type="button" data-view="videos">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3V9Z"/></svg>
+          <span>Video library</span>
+          <span class="nav-count" id="video-nav-count">—</span>
+        </button>
+        <button class="nav-link" type="button" data-view="learning">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21V5.5Z"/><path d="M4 17a2.5 2.5 0 0 1 2.5-2.5H20M9 7h6"/></svg>
+          <span>Learning paths</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="profile">
+          <div class="profile-avatar">R</div>
+          <div class="profile-copy"><strong>Raj Shamani</strong><span>Channel insights</span></div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="page-heading">
+          <div class="eyebrow" id="page-eyebrow">CHANNEL PERFORMANCE</div>
+          <h1 id="page-title">Overview</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="updated-label" id="updated-label"><span class="live-dot"></span> Latest snapshot</div>
+          <button class="button button-primary" id="open-refresh" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.4 15"/></svg>
+            <span>Refresh data</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <section class="view-panel is-visible" id="view-overview" aria-labelledby="page-title">
+          <div class="channel-banner">
+            <div class="channel-avatar" id="channel-avatar">S</div>
+            <div class="channel-copy">
+              <div class="channel-overline">YOUR CHANNEL</div>
+              <h2 id="channel-name">Your channel analytics</h2>
+              <div class="channel-meta"><span id="channel-id">Connect your first data snapshot</span><span class="meta-separator"></span><span id="data-source">Waiting for data</span></div>
+            </div>
+            <div class="snapshot-badge"><span class="snapshot-icon">↗</span><span><strong id="snapshot-number">—</strong><small>snapshot</small></span></div>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric-card">
+              <div class="metric-heading"><span>Subscribers</span><span class="metric-icon icon-purple"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></div>
+              <div class="metric-value" id="metric-subscribers">—</div>
+              <div class="metric-caption"><span class="metric-caption-dot dot-purple"></span>Channel audience</div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-heading"><span>Total views</span><span class="metric-icon icon-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></span></div>
+              <div class="metric-value" id="metric-views">—</div>
+              <div class="metric-caption"><span class="metric-caption-dot dot-blue"></span>Across analyzed videos</div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-heading"><span>Avg. engagement</span><span class="metric-icon icon-green"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg></span></div>
+              <div class="metric-value" id="metric-engagement">—</div>
+              <div class="metric-caption"><span class="metric-caption-dot dot-green"></span>Likes + comments per view</div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-heading"><span>Videos analyzed</span><span class="metric-icon icon-orange"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 9 5 3-5 3V9Z"/></svg></span></div>
+              <div class="metric-value" id="metric-videos">—</div>
+              <div class="metric-caption"><span class="metric-caption-dot dot-orange"></span>In the latest snapshot</div>
+            </article>
+          </div>
+
+          <div class="overview-grid">
+            <section class="surface-card performance-card">
+              <div class="section-heading">
+                <div><div class="section-kicker">CONTENT QUALITY</div><h2>Performance mix</h2></div>
+                <span class="subtle-label">Latest snapshot</span>
+              </div>
+              <p class="section-description">How your analyzed videos are distributed across engagement tiers.</p>
+              <div class="distribution-list" id="performance-chart"></div>
+              <div class="chart-footnote"><span class="footnote-mark">i</span> Categories are based on engagement rate and views.</div>
+            </section>
+
+            <section class="surface-card leaders-card">
+              <div class="section-heading">
+                <div><div class="section-kicker">MOST WATCHED</div><h2>Top videos</h2></div>
+                <button class="text-button" type="button" data-go="videos">View library <span>→</span></button>
+              </div>
+              <div class="leaders-list" id="top-videos"></div>
+            </section>
+          </div>
+
+          <section class="surface-card latest-card">
+            <div class="section-heading">
+              <div><div class="section-kicker">LATEST CONTENT</div><h2>Recently published</h2></div>
+              <button class="text-button" type="button" data-go="videos">All videos <span>→</span></button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>VIDEO</th><th>TOPIC</th><th>VIEWS</th><th>ENGAGEMENT</th><th>PERFORMANCE</th></tr></thead>
+                <tbody id="recent-videos"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="view-panel" id="view-videos" aria-labelledby="page-title">
+          <div class="view-intro">
+            <div><div class="section-kicker">YOUR CONTENT</div><h2>Video library</h2><p>Explore performance across the videos in your latest snapshot.</p></div>
+            <div class="result-count" id="video-result-count">— videos</div>
+          </div>
+          <section class="surface-card library-card">
+            <div class="filter-bar">
+              <label class="search-field">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+                <input id="video-search" type="search" placeholder="Search videos or topics" autocomplete="off">
+              </label>
+              <label class="select-wrap"><span class="sr-only">Filter by topic</span><select id="topic-filter"><option value="">All topics</option></select></label>
+              <label class="select-wrap"><span class="sr-only">Filter by performance</span><select id="performance-filter"><option value="">All performance</option><option>Viral Hit</option><option>High Engagement</option><option>Steady Growth</option></select></label>
+              <label class="select-wrap"><span class="sr-only">Sort videos by</span><select id="sort-filter"><option value="views">Most views</option><option value="engagement_rate">Engagement</option><option value="published_at">Recently published</option></select></label>
+            </div>
+            <div class="table-wrap library-table-wrap">
+              <table>
+                <thead><tr><th>VIDEO</th><th>TOPIC</th><th>VIEWS</th><th>LIKES</th><th>ENGAGEMENT</th><th>PUBLISHED</th><th>PERFORMANCE</th></tr></thead>
+                <tbody id="library-videos"></tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span id="pagination-summary">—</span>
+              <div class="pagination"><button class="page-button" id="previous-page" type="button" aria-label="Previous page">←</button><span id="page-number">1</span><button class="page-button" id="next-page" type="button" aria-label="Next page">→</button></div>
+            </div>
+          </section>
+        </section>
+
+        <section class="view-panel" id="view-learning" aria-labelledby="page-title">
+          <div class="view-intro learning-intro">
+            <div><div class="section-kicker">LEARN WITH INTENTION</div><h2>Learning paths</h2><p>Turn high-performing videos into a focused path for your next deep dive.</p></div>
+          </div>
+          <section class="learning-hero">
+            <div class="learning-hero-copy"><div class="hero-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21V5.5Z"/><path d="M4 17a2.5 2.5 0 0 1 2.5-2.5H20M9 7h6"/></svg></div><div><div class="section-kicker">PERSONALIZED PLAYLIST</div><h2>Build your next learning path</h2><p>Choose a topic and time limit. We’ll rank matching videos by audience engagement.</p></div></div>
+            <form id="recommendation-form" class="recommendation-form">
+              <label>Explore a topic<select id="recommendation-topic" required><option value="">Choose a topic</option></select></label>
+              <label>Maximum length<select id="duration-filter"><option value="30">30 minutes</option><option value="60">1 hour</option><option value="120" selected>2 hours</option><option value="240">4 hours</option></select></label>
+              <button class="button button-dark" type="submit"><span>Build my path</span><span aria-hidden="true">→</span></button>
+            </form>
+          </section>
+          <section class="surface-card pathway-card">
+            <div class="section-heading"><div><div class="section-kicker">YOUR CURATED SEQUENCE</div><h2 id="pathway-title">Your learning path</h2></div><span class="subtle-label" id="pathway-count">Choose a topic to begin</span></div>
+            <div id="recommendation-list" class="recommendation-list">
+              <div class="empty-inline"><div class="empty-icon">✳</div><strong>Your next idea starts here</strong><span>Select a topic above to create a ranked learning path.</span></div>
+            </div>
+          </section>
+        </section>
+
+        <div class="empty-state is-hidden" id="empty-state">
+          <div class="empty-illustration"><span class="empty-illustration-orbit"></span><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="14" width="40" height="36" rx="9"/><path d="m27 25 13 7-13 7V25Z"/></svg></div>
+          <div class="section-kicker">ONE QUICK SETUP</div>
+          <h2>Your analytics are ready to take shape.</h2>
+          <p>Fetch your first snapshot to explore channel performance, browse videos, and build topic-based learning paths.</p>
+          <button class="button button-primary" id="empty-refresh" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.4 15"/></svg><span>Fetch first snapshot</span></button>
+          <span class="empty-footnote">No YouTube API key? Sample analytics will be used automatically.</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="refresh-dialog" id="refresh-dialog" aria-labelledby="dialog-title">
+    <form id="refresh-form" method="dialog">
+      <button class="dialog-close" id="close-refresh" type="button" aria-label="Close dialog">×</button>
+      <div class="dialog-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.4 15"/></svg></div>
+      <div class="section-kicker">SYNC YOUR CHANNEL</div>
+      <h2 id="dialog-title">Refresh analytics</h2>
+      <p>Fetch the latest video metrics and save a new snapshot for your dashboard.</p>
+      <label class="dialog-label" for="channel-input">YouTube channel ID or handle <span>OPTIONAL</span></label>
+      <input id="channel-input" class="dialog-input" type="text" placeholder="e.g. @rajshamani" autocomplete="off">
+      <span class="dialog-hint">Leave blank to use the channel configured in your environment.</span>
+      <div class="dialog-actions"><button class="button button-quiet" id="cancel-refresh" type="button">Cancel</button><button class="button button-primary" id="submit-refresh" type="submit"><span>Fetch latest data</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.4 15"/></svg></button></div>
+    </form>
+  </dialog>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

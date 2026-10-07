@@ -3,15 +3,20 @@
 import os
 from contextlib import asynccontextmanager
 from functools import lru_cache
+from pathlib import Path
 from typing import Dict, List, Literal, Optional
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
 
 from data_service import DATABASE_PATH, refresh_data
 from database import YouTubeDatabase
 
+
+FRONTEND_DIR = Path(__file__).resolve().parent / "frontend"
 
 DEFAULT_FRONTEND_ORIGINS = [
 	"http://localhost:3000",
@@ -54,6 +59,14 @@ app.add_middleware(
 	allow_methods=["GET", "POST"],
 	allow_headers=["Content-Type"],
 )
+
+
+@app.get("/", include_in_schema=False)
+def frontend() -> FileResponse:
+	return FileResponse(FRONTEND_DIR / "index.html")
+
+
+app.mount("/assets", StaticFiles(directory=FRONTEND_DIR), name="frontend-assets")
 
 
 class RefreshRequest(BaseModel):
