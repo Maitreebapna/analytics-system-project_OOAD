@@ -29,8 +29,7 @@ data instead.
 
 ## Outputs
 
-Both output files are written beside `main.py`, regardless of the current
-terminal directory:
+Both output files are written beside `main.py`:
 
 - `youtube_analytics.db`: SQLite tables for current channel/video records and
 	dated analytics snapshots. The `powerbi_video_analytics` view combines
