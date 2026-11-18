@@ -15,13 +15,6 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
-If PowerShell blocks virtual-environment activation, run this once in the same
-terminal before activating:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
-```
-
 To use live YouTube data, set an API key in the current PowerShell session
 before running the program:
 
